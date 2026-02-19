@@ -22,7 +22,7 @@ public:
     std::vector<T> getDepolarizationF() const { return this->depolarizationF; }
 
     // TODO: Implement setters
-    // TODO: Implement the volume fractions sum check
+    // TODO: Implement the volume fractions sum check... not here?
 
 private:
     T volumeFraction;
