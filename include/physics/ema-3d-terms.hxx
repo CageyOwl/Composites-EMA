@@ -1,5 +1,5 @@
-#ifndef EMA_3D_HXX
-#define EMA_3D_HXX
+#ifndef EMA_3D_TERMS_HXX
+#define EMA_3D_TERMS_HXX
 
 #include <complex>
 #include <type_traits>
@@ -7,11 +7,11 @@
 
 
 //  Naming: Par - particles, Dist - random
-namespace bruggeman::v3D {
+namespace ema::bruggeman::v3D {
 namespace term {
 
 template <typename T> requires std::is_floating_point_v<T>
-std::complex<T> anisotropicParRandDistTerm(const ema_data::MaterialNode<T> &node,
+std::complex<T> anisotropicParRandDist(const ema::data::MaterialNode<T> &node,
                                            const std::complex<T> &effectiveParam) {
     std::complex<T> termsSum{ 0.0, 0.0 },
                     numerator{ node.getParam() - effectiveParam };
@@ -21,7 +21,7 @@ std::complex<T> anisotropicParRandDistTerm(const ema_data::MaterialNode<T> &node
 }
 
 template <typename T> requires std::is_floating_point_v<T>
-std::complex<T> anisotropicParRandDistTerm(const ema_data::MaterialNode<T> &node,
+std::complex<T> anisotropicParRandDist(const ema::data::MaterialNode<T> &node,
                                            const std::complex<T> &effectiveParam,
                                            const T volumeFraction) {
     std::complex<T> termsSum{ 0.0, 0.0 },
@@ -33,7 +33,7 @@ std::complex<T> anisotropicParRandDistTerm(const ema_data::MaterialNode<T> &node
 
 
 template <typename T> requires std::is_floating_point_v<T>
-std::complex<T> anisotropicParRandDistTerm(const ema_data::MaterialNode<T> &node,
+std::complex<T> anisotropicParRandDist(const ema::data::MaterialNode<T> &node,
                                            const std::complex<T> &effectiveParam,
                                            const std::complex<T> &param) {
     std::complex<T> termsSum{ 0.0, 0.0 },
@@ -48,7 +48,7 @@ std::complex<T> anisotropicParRandDistTerm(const ema_data::MaterialNode<T> &node
 namespace derivative_term {
 
 template <typename T> requires std::is_floating_point_v<T>
-std::complex<T> anisotropicParRandDistTerm(const ema_data::MaterialNode<T> &node,
+std::complex<T> anisotropicParRandDist(const ema::data::MaterialNode<T> &node,
                                            const std::complex<T> &effectiveParam) {
     std::complex<T> termsSum{ 0.0, 0.0 },
                     param{ node.getParam() },
@@ -62,7 +62,7 @@ std::complex<T> anisotropicParRandDistTerm(const ema_data::MaterialNode<T> &node
 }
 
 template <typename T> requires std::is_floating_point_v<T>
-std::complex<T> anisotropicParRandDistTerm(const ema_data::MaterialNode<T> &node,
+std::complex<T> anisotropicParRandDist(const ema::data::MaterialNode<T> &node,
                                            const std::complex<T> &effectiveParam,
                                            const T volumeFraction) {
     std::complex<T> termsSum{ 0.0, 0.0 },
@@ -77,7 +77,7 @@ std::complex<T> anisotropicParRandDistTerm(const ema_data::MaterialNode<T> &node
 }
 
 template <typename T> requires std::is_floating_point_v<T>
-std::complex<T> anisotropicParRandDistTerm(const ema_data::MaterialNode<T> &node,
+std::complex<T> anisotropicParRandDist(const ema::data::MaterialNode<T> &node,
                                            const std::complex<T> &effectiveParam,
                                            const std::complex<T> &param) {
     std::complex<T> termsSum{ 0.0, 0.0 },
@@ -91,7 +91,7 @@ std::complex<T> anisotropicParRandDistTerm(const ema_data::MaterialNode<T> &node
 }
 
 }   // namespace derivative_term
-}   // namespace bruggeman::v3D
+}   // namespace ema::bruggeman::v3D
 
 
-#endif  // EMA_HXX
+#endif  // EMA_3D_TERMS_HXX

@@ -6,7 +6,7 @@
 #include <vector>
 
 
-namespace ema_data {
+namespace ema::data {
 
 template <typename T> requires std::is_floating_point_v<T>
 class MaterialNode {
@@ -46,7 +46,7 @@ struct FillersParams {
     std::vector<std::complex<T>> fillersParams;
 };
 
-}   // namespace data
+}   // namespace ema::data
 
 
 #endif
