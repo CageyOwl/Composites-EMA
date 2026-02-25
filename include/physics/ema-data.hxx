@@ -3,6 +3,7 @@
 
 #include <complex>
 #include <type_traits>
+#include <unordered_map>
 #include <vector>
 
 
@@ -43,7 +44,7 @@ struct VolumeFractions {
 
 template <typename T> requires std::is_floating_point_v<T>
 struct FillersParams {
-    std::vector<std::complex<T>> fillersParams;
+    std::unordered_map<size_t, std::complex<T>> fillersParams;
 };
 
 }   // namespace ema::data

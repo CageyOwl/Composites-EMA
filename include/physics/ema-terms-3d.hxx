@@ -7,8 +7,8 @@
 
 
 //  Naming: Par - particles, Dist - random
-namespace ema::bruggeman::v3D {
-namespace term {
+namespace ema::bruggeman {
+namespace term::v3D {
 
 template <typename T> requires std::is_floating_point_v<T>
 std::complex<T> anisotropicParRandDist(const ema::data::MaterialNode<T> &node,
@@ -43,9 +43,9 @@ std::complex<T> anisotropicParRandDist(const ema::data::MaterialNode<T> &node,
     return (termsSum * node.getVolumeFraction() / 3.0);
 }
 
-}   // namespace term
+}   // namespace term::v3D
 
-namespace derivative_term {
+namespace derivative_term::v3D {
 
 template <typename T> requires std::is_floating_point_v<T>
 std::complex<T> anisotropicParRandDist(const ema::data::MaterialNode<T> &node,
@@ -90,8 +90,8 @@ std::complex<T> anisotropicParRandDist(const ema::data::MaterialNode<T> &node,
     return (termsSum * node.getVolumeFraction() / 3.0);
 }
 
-}   // namespace derivative_term
-}   // namespace ema::bruggeman::v3D
+}   // namespace derivative_term::v3D
+}   // namespace ema::bruggeman
 
 
 #endif  // EMA_3D_TERMS_HXX

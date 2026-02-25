@@ -4,17 +4,17 @@
 #include <complex>
 #include <type_traits>
 #include "ema-data.hxx"
-#include "ema-3d-terms.hxx"
+#include "ema-terms-3d.hxx"
 
 
-namespace ema::bruggeman::funcEMA {
+namespace ema::bruggeman::function {
 
 template <typename T> requires std::is_floating_point_v<T>
 std::complex<T> anisotropicParRandDist(const std::vector<ema::data::MaterialNode<T>> &composite,
                                        const std::complex<T> &effectiveParam) {
     std::complex<T> F{ 0.0, 0.0 };
     for (const auto &c : composite)
-        F += ema::bruggeman::v3D::term::anisotropicParRandDist(c, effectiveParam);
+        F += ema::bruggeman::term::v3D::anisotropicParRandDist(c, effectiveParam);
     return F;
 }
 
@@ -25,7 +25,7 @@ std::complex<T> anisotropicParRandDist(const std::vector<ema::data::MaterialNode
     std::complex<T> F{ 0.0, 0.0 };
     size_t i{ 0 };
     for (const auto &c : composite)
-        F += ema::bruggeman::v3D::term::anisotropicParRandDist(c, effectiveParam, volumeFractions[i++]);
+        F += ema::bruggeman::term::v3D::anisotropicParRandDist(c, effectiveParam, volumeFractions[i++]);
     return F;
 }
 
@@ -35,8 +35,10 @@ std::complex<T> anisotropicParRandDist(const std::vector<ema::data::MaterialNode
                                        const data::FillersParams<T> &fillersParams) {
     std::complex<T> F{ 0.0, 0.0 };
     // TODO
-    for (const auto &c : composite)
-        F += ;
+    for (size_t pos{0}; pos < composite.size(); ++pos)
+        F += (fillersParams.contains(pos)
+                ? ema::bruggeman::term::v3D::anisotropicParRandDist(composite[pos], effectiveParam, fillersParams[pos].value())
+                : ema::bruggeman::term::v3D::anisotropicParRandDist(composite[pos], effectiveParam));
     return F;
 }
 

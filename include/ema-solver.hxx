@@ -4,7 +4,7 @@
 #include <type_traits>
 
 
-namespace bruggeman {
+namespace ema::bruggeman {
 
 template <typename T> requires std::is_floating_point_v<T>
 class SolverEMA {
