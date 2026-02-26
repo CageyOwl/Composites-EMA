@@ -47,6 +47,10 @@ struct FillersParams {
     std::unordered_map<size_t, std::complex<T>> fillersParams;
 };
 
+enum Axis {
+    x,y,z
+};
+
 }   // namespace ema::data
 
 

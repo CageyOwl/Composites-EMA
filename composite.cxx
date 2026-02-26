@@ -1,15 +1,16 @@
-#include "ema-data.hxx"
+#include <iostream>
+#include "physics/ema-data.hxx"
+#include "physics/ema-bruggeman-terms.hxx"
 
 
 int main() {
     // TODO
-    std::vector<ema_data::MaterialNode<double>> composite{
-        {0.2, {60000.0, 0.0}, {1.0/3.0, 1.0/3.0, 1.0/3.0}},
-        {0.2, {2.6, 0.0}, {1.0/3.0, 1.0/3.0, 1.0/3.0}}
+    std::vector<ema::data::MaterialNode<double>> composite{
+        {0.33, {60000.0, 0.0}, {1.0/3.0, 1.0/3.0, 1.0/3.0}},
+        {0.67, {2.6, 0.0}, {1.0/3.0, 1.0/3.0, 1.0/3.0}}
     };
 
-    for (double i{ 0.0 }; i < 1.01; i += 0.01)
-        ;
+    std::cout << ema::bruggeman::func::term::random3D<double>(ema::bruggeman::func::term::cmp::axialTerm<double>, composite[0], 4.0) << '\n';
 
     return 0;
 }
