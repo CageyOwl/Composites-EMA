@@ -33,9 +33,9 @@ namespace derivative_cmp {
 
 template <typename T, typename AxialTermFuncT> requires std::is_floating_point_v<T>
                                                      && std::is_invocable_r_v<std::complex<T>, AxialTermFuncT, const std::complex<T>&, const std::complex<T>&, const T>
-inline std::complex<T> componentAxialTermsSum(AxialTermFuncT func,
-                                              const ema::data::MaterialNode<T> &node,
-                                              const std::complex<T> &effectiveParam) {
+inline std::complex<T> componentAxialTermsSum(const ema::data::MaterialNode<T> &node,
+                                              const std::complex<T> &effectiveParam,
+                                              AxialTermFuncT func) {
     std::complex<T> axialTermsSum{0.0, 0.0};
     for (const auto &L : node.getDepolarizationFV())
         axialTermsSum += func(node.getParam(), effectiveParam, L);
@@ -44,10 +44,10 @@ inline std::complex<T> componentAxialTermsSum(AxialTermFuncT func,
 
 template <typename T, typename AxialTermFuncT> requires std::is_floating_point_v<T>
                                                      && std::is_invocable_r_v<std::complex<T>, AxialTermFuncT, const std::complex<T>&, const std::complex<T>&, const T>
-std::complex<T> random3D(AxialTermFuncT func,
-                         const ema::data::MaterialNode<T> &node,
-                         const std::complex<T> &effectiveParam) {
-    return componentAxialTermsSum(func, node, effectiveParam) * node.getVolumeFraction() / static_cast<T>(3.0);
+std::complex<T> random3D(const ema::data::MaterialNode<T> &node,
+                         const std::complex<T> &effectiveParam,
+                         AxialTermFuncT func) {
+    return componentAxialTermsSum(node, effectiveParam, func) * node.getVolumeFraction() / static_cast<T>(3.0);
 }
 
 // template <typename T> requires std::is_floating_point_v<T>
