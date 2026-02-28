@@ -1,5 +1,5 @@
-#ifndef UTILS_HXX
-#define UTILS_HXX
+#ifndef UTILS_H
+#define UTILS_H
 
 #include <string>
 #include <unordered_map>

@@ -1,5 +1,5 @@
-#ifndef EMA_SOLVER_HXX
-#define EMA_SOLVER_HXX
+#ifndef EMA_SOLVER_H
+#define EMA_SOLVER_H
 
 #include <type_traits>
 

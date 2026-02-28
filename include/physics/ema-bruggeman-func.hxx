@@ -1,5 +1,5 @@
-#ifndef EMA_FUNC_HXX
-#define EMA_FUNC_HXX
+#ifndef EMA_FUNC_H
+#define EMA_FUNC_H
 
 #include <complex>
 #include <type_traits>
