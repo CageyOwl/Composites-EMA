@@ -3,44 +3,26 @@
 
 #include <complex>
 #include <type_traits>
-#include "ema-data.hxx"
+#include "ema-averaging.hxx"
 #include "ema-bruggeman-terms.hxx"
+#include "ema-data.hxx"
 
 
 namespace ema::bruggeman::func {
 
-// template <typename T> requires std::is_floating_point_v<T>
-// std::complex<T> anisotropicParRandDist(const std::vector<ema::data::MaterialNode<T>> &composite,
-//                                        const std::complex<T> &effectiveParam) {
-//     std::complex<T> F{ 0.0, 0.0 };
-//     for (const auto &c : composite)
-//         F += ema::bruggeman::term::v3D::anisotropicParRandDist(c, effectiveParam);
-//     return F;
-// }
-
-// template <typename T> requires std::is_floating_point_v<T>
-// std::complex<T> anisotropicParRandDist(const std::vector<ema::data::MaterialNode<T>> &composite,
-//                                        const std::complex<T> &effectiveParam,
-//                                        const data::VolumeFractions<T> &volumeFractions) {
-//     std::complex<T> F{ 0.0, 0.0 };
-//     size_t i{ 0 };
-//     for (const auto &c : composite)
-//         F += ema::bruggeman::term::v3D::anisotropicParRandDist(c, effectiveParam, volumeFractions[i++]);
-//     return F;
-// }
-
-// template <typename T> requires std::is_floating_point_v<T>
-// std::complex<T> anisotropicParRandDist(const std::vector<ema::data::MaterialNode<T>> &composite,
-//                                        const std::complex<T> &effectiveParam,
-//                                        const data::FillersParams<T> &fillersParams) {
-//     std::complex<T> F{ 0.0, 0.0 };
-//     // TODO
-//     for (size_t pos{0}; pos < composite.size(); ++pos)
-//         F += (fillersParams.contains(pos)
-//                 ? ema::bruggeman::term::v3D::anisotropicParRandDist(composite[pos], effectiveParam, fillersParams[pos].value())
-//                 : ema::bruggeman::term::v3D::anisotropicParRandDist(composite[pos], effectiveParam));
-//     return F;
-// }
+template <typename T, typename AxialContributionFuncT> requires std::is_floating_point_v<T>
+                                                             && std::is_invocable_r_v<std::complex<T>, AxialContributionFuncT, const std::complex<T>&, const std::complex<T>&, const T>
+std::complex<T> isotropic3D(const std::vector<ema::data::MaterialNode<T>> &composite,
+                            const std::complex<T> &effectiveParam,
+                            AxialContributionFuncT axConFunc) {
+    std::complex<T> F{0.0, 0.0};
+    for (const auto &c : composite) {
+        F += term::calcTerm(c.getVolumeFraction(),
+                            term::axialContributionsSum(c, effectiveParam, axConFunc),
+                            ema::averaging::isotropic3D<T>);
+    }
+    return F;
+}
 
 }   // namespace ema::bruggeman::funcEMA
 

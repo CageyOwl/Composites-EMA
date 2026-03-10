@@ -1,7 +1,7 @@
 #include <iostream>
-#include "physics/ema-data.hxx"
-#include "physics/ema-averaging.hxx"
+#include "physics/ema-bruggeman-func.hxx"
 #include "physics/ema-bruggeman-terms.hxx"
+#include "physics/ema-data.hxx"
 
 
 int main() {
@@ -13,13 +13,7 @@ int main() {
         {0.67, {2.6, 0.0}, {1.0/3.0, 1.0/3.0, 1.0/3.0}}
     };
 
-    std::cout << ebf::term::calcTerm(composite[0].getVolumeFraction(),
-                                     ebf::term::axialContributionsSum(composite[0], {7.0,0.0}, ebf::term::axial::contribution<double>),
-                                     ema::averaging::isotropic3D<double>) << '\n';
-
-    std::cout << ebf::term::calcTerm(composite[0].getVolumeFraction(),
-                                     ebf::term::axialContributionsSum(composite[0], {7.0,0.0}, ebf::term::axial::contribution<double>),
-                                     ema::averaging::isotropic2D<double>) << '\n';
+    std::cout << ebf::isotropic3D(composite, std::complex<double>{6.0, 0.0}, ebf::term::axial::contribution<double>) << '\n';
 
     return 0;
 }
