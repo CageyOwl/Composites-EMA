@@ -2,6 +2,7 @@
 #define EMA_DATA_H
 
 #include <complex>
+#include <concepts>
 #include <type_traits>
 #include <unordered_map>
 #include <vector>
@@ -9,7 +10,7 @@
 
 namespace ema::data {
 
-template <typename T> requires std::is_floating_point_v<T>
+template <std::floating_point T>
 class MaterialNode {
 public:
     MaterialNode(const T volumeFraction,

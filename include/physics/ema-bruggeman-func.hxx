@@ -2,6 +2,7 @@
 #define EMA_FUNC_H
 
 #include <complex>
+#include <concepts>
 #include <type_traits>
 #include "ema-averaging.hxx"
 #include "ema-bruggeman-terms.hxx"
@@ -10,11 +11,10 @@
 
 namespace ema::bruggeman::func {
 
-template <typename T, typename AxialContributionFuncT> requires std::is_floating_point_v<T>
-                                                             && std::is_invocable_r_v<std::complex<T>, AxialContributionFuncT, const std::complex<T>&, const std::complex<T>&, const T>
+template <std::floating_point T>
 std::complex<T> isotropic3D(const std::vector<ema::data::MaterialNode<T>> &composite,
                             const std::complex<T> &effectiveParam,
-                            AxialContributionFuncT axConFunc) {
+                            ema::bruggeman::func::term::AxialContributionCalcFunc<T> auto axConFunc) {
     std::complex<T> F{0.0, 0.0};
     for (const auto &c : composite) {
         F += term::calcTerm(c.getVolumeFraction(),

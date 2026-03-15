@@ -1,12 +1,13 @@
 #ifndef EMA_SOLVER_H
 #define EMA_SOLVER_H
 
+#include <concepts>
 #include <type_traits>
 
 
 namespace ema::bruggeman {
 
-template <typename T> requires std::is_floating_point_v<T>
+template <std::floating_point T>
 class SolverEMA {
 public:
 
